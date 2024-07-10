@@ -15,11 +15,11 @@ function Signin() {
         <img src={Logo} alt="logo" className="logo" />
       </Stack>
 
-      <Grid container sx={{ mt: 2, }} >
-        <Grid item xs={12} lg={6} sx={{ mt: 2, width: "100%", }}>
+      <Grid container sx={{ mt: 2, overflow: "hidden" }}>
+        <Grid item xs={12} lg={6} sx={{ mt: 2, width: "100%",}}>
           <Stack>
             <Typography
-              sx={{ mt: 2, mb: 2, color: "brown", fontSize: {xs:"29px",lg: "40px"} }}
+              sx={{ mt: 2, mb: 2, color: "brown", fontSize: { xs: "29px", lg: "40px" } }}
               variant="p"
             >
               Find Your Dream Job Through This Linkedin Clone
@@ -36,7 +36,7 @@ function Signin() {
           />
           <Button
             variant="contained"
-            sx={{ mt: 2, borderRadius: 10, width: "100%", }}
+            sx={{ mt: 2, borderRadius: 10, width: "100%" }}
           >
             Sign in
           </Button>
@@ -48,7 +48,7 @@ function Signin() {
           container
           justifyContent="center"
           alignItems="center"
-          sx={{width: "100%", display: {xs: 'none', lg: "block"}}}
+          sx={{ width: "100%", display: { xs: 'none', lg: "block", } }}
         >
           <img
             src={SigninImg}
@@ -57,7 +57,7 @@ function Signin() {
               height: "90%",
               width: "90%",
               objectFit: "cover",
-              marginTop: '-30px',
+              marginTop: '-0px',
             }}
           />
         </Grid>
