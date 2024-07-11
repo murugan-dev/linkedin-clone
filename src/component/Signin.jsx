@@ -1,14 +1,45 @@
-import React from "react";
+import React, {useState} from "react";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, database } from "../firebase/setup"
+import {addDoc, collection } from "firebase/firestore"
+import {ToastContainer , toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 import Logo from "../assets/logo.png";
 import SigninImg from "../assets/signin.jpg";
 import "../css/signin.css";
 
 function Signin() {
+
+  const [userName, setUserName] = useState('');
+
+  const addUser = async () =>{
+    const userRef = collection(database, "Users")
+    try{
+      await addDoc(userRef, {
+        username : userName,
+      });
+    }catch(err){
+      console.log(err)
+    }  
+} 
+
+  const signinWithGoogle = async () => {
+    !userName && toast.warn("please enter the the User name")
+    try{
+      userName && await signInWithPopup(auth, googleProvider)
+      userName && addUser()
+    }
+    catch(err){
+      console.log(err)
+    }
+
+  }
+
   return (
     <div className="signin-container">
       <Stack>
@@ -17,6 +48,7 @@ function Signin() {
 
       <Grid container sx={{ mt: 2, overflow: "hidden" }}>
         <Grid item xs={12} lg={6} sx={{ mt: 2, width: "100%",}}>
+          <ToastContainer autoClose={2000} position='top-right'/>
           <Stack>
             <Typography
               sx={{ mt: 2, mb: 2, color: "brown", fontSize: { xs: "29px", lg: "40px" } }}
@@ -33,8 +65,9 @@ function Signin() {
             variant="outlined"
             label="Email or username"
             sx={{ width: "100%", mt: 2 }}
+            onChange= {(e)=>setUserName(e.target.value)}
           />
-          <Button
+          <Button onClick = { signinWithGoogle }
             variant="contained"
             sx={{ mt: 2, borderRadius: 10, width: "100%" }}
           >
