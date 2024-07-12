@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider, database } from "../firebase/setup"
-import {addDoc, collection } from "firebase/firestore"
+import { doc, setDoc } from "firebase/firestore"
 import {ToastContainer , toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import Logo from "../assets/logo.png";
@@ -16,12 +16,15 @@ import "../css/signin.css";
 function Signin() {
 
   const [userName, setUserName] = useState('');
+  const [designation, setDesignation] = useState('');
 
   const addUser = async () =>{
-    const userRef = collection(database, "Users")
+    const userRef = doc(database, "Users", auth.currentUser?.uid)
     try{
-      await addDoc(userRef, {
+      await setDoc(userRef, {
         username : userName,
+        email: auth.currentUser?.email,
+        designation: designation,
       });
     }catch(err){
       console.log(err)
@@ -64,8 +67,18 @@ function Signin() {
           <TextField
             variant="outlined"
             label="Email or username"
-            sx={{ width: "100%", mt: 2 }}
+            sx={{ width: "100%", mt: 2, mb: 1}}
             onChange= {(e)=>setUserName(e.target.value)}
+          />
+          <label style={{ fontWeight: "bold", fontSize: "1.1rem" }}>
+            Designation
+          </label>
+          <br />
+          <TextField
+            variant="outlined"
+            label="Designation"
+            sx={{ width: "100%", mt: 2 }}
+            onChange= {(e)=>setDesignation(e.target.value)}
           />
           <Button onClick = { signinWithGoogle }
             variant="contained"
