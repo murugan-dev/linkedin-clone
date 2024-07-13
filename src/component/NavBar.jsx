@@ -85,7 +85,7 @@ const NavBar = () => {
                 sx={{
                   position: "absolute",
                   right: "84%",
-                  top: "50%",  
+                  top: "50%",
                   transform: "translateY(-50%)",
                   zIndex: 10,
                   color: isFocused ? "blue" : "grey",
@@ -122,22 +122,24 @@ const NavBar = () => {
           <Stack direction="row" spacing={1}>
             <Button
               sx={{
-                
+
                 "&:hover": { color: "#0174B3" },
                 display: "flex",
                 flexDirection: "column",
                 borderBottom: activeMenu === "home" ? "3px solid #0174b3" : "none",
                 color: activeMenu === "home" ? "#0174b3" : "#000",
+
               }}
+              
               className="navigation"
               onClick={() => handleMenuClick("home")}
             >
-              <HomeIcon style={{ fontSize: 20 }} />
-              <p>Home</p>
+              <HomeIcon style={{ fontSize: 20 }}/>
+              <p style={{fontSize: 12}}>Home</p>
             </Button>
             <Button
               sx={{
-                
+
                 "&:hover": { color: "#0174B3" },
                 display: "flex",
                 flexDirection: "column",
@@ -148,11 +150,11 @@ const NavBar = () => {
               onClick={() => handleMenuClick("network")}
             >
               <PeopleAltIcon style={{ fontSize: 20 }} />
-              <p>Network</p>
+              <p style={{fontSize: 12}}>Network</p>
             </Button>
             <Button
               sx={{
-                
+
                 "&:hover": { color: "#0174B3" },
                 display: "flex",
                 flexDirection: "column",
@@ -163,11 +165,11 @@ const NavBar = () => {
               onClick={() => handleMenuClick("message")}
             >
               <MessageIcon style={{ fontSize: 20 }} />
-              <p>Message</p>
+              <p style={{fontSize: 12}}>Message</p>
             </Button>
             <Button
               sx={{
-                
+
                 "&:hover": { color: "#0174B3" },
                 display: "flex",
                 flexDirection: "column",
@@ -178,7 +180,7 @@ const NavBar = () => {
               onClick={() => handleMenuClick("profile")}
             >
               <AccountCircleIcon style={{ fontSize: 20 }} />
-              <p>Profile</p>
+              <p style={{fontSize: 12}}>Profile</p>
             </Button>
           </Stack>
         </Grid>
