@@ -12,8 +12,8 @@ import "../css/Home.css";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isFocused, setIsFocused] = useState(false);
+  const [activeMenu, setActiveMenu] = useState("home");
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -26,12 +26,17 @@ const NavBar = () => {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
+
+  const handleMenuClick = (menu) => {
+    setActiveMenu(menu);
+  };
+
   return (
     <>
       <Grid
         container
         sx={{
-          padding: { xs: "0px 5%", lg: "0px 10%" },
+          padding: { xs: "0px 2%", lg: "0px 10%" },
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -66,7 +71,7 @@ const NavBar = () => {
               <TextField
                 variant="outlined"
                 placeholder="Search"
-                sx={{ width: { xs: "120%", lg: "150%" } }}
+                sx={{ width: { xs: "110%", lg: "150%" } }}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 InputProps={{
@@ -80,7 +85,7 @@ const NavBar = () => {
                 sx={{
                   position: "absolute",
                   right: "84%",
-                  top: "50%",
+                  top: "50%",  
                   transform: "translateY(-50%)",
                   zIndex: 10,
                   color: isFocused ? "blue" : "grey",
@@ -93,6 +98,7 @@ const NavBar = () => {
               display: { xs: isMenuOpen ? "none" : "flex", lg: "none" },
               justifyContent: "center",
               alignItems: "center",
+              gap: '10px'
             }}
           >
             <MenuIcon onClick={toggleMenu} />
@@ -114,20 +120,136 @@ const NavBar = () => {
           }}
         >
           <Stack direction="row" spacing={1}>
-            <Button sx={{ color: "#000", "&:hover": { color: "#0174B3", } }}>
-              <HomeIcon style={{ fontSize: 30 }} />
+            <Button
+              sx={{
+                
+                "&:hover": { color: "#0174B3" },
+                display: "flex",
+                flexDirection: "column",
+                borderBottom: activeMenu === "home" ? "3px solid #0174b3" : "none",
+                color: activeMenu === "home" ? "#0174b3" : "#000",
+              }}
+              className="navigation"
+              onClick={() => handleMenuClick("home")}
+            >
+              <HomeIcon style={{ fontSize: 20 }} />
+              <p>Home</p>
             </Button>
-            <Button sx={{ color: "#000", "&:hover": { color: "#0174B3" } }}>
-              <PeopleAltIcon style={{ fontSize: 30 }} />
+            <Button
+              sx={{
+                
+                "&:hover": { color: "#0174B3" },
+                display: "flex",
+                flexDirection: "column",
+                borderBottom: activeMenu === "network" ? "3px solid #0174b3" : "none",
+                color: activeMenu === "network" ? "#0174b3" : "#000",
+              }}
+              className="navigation"
+              onClick={() => handleMenuClick("network")}
+            >
+              <PeopleAltIcon style={{ fontSize: 20 }} />
+              <p>Network</p>
             </Button>
-            <Button sx={{ color: "#000", "&:hover": { color: "#0174B3" } }}>
-              <MessageIcon style={{ fontSize: 30 }} />
+            <Button
+              sx={{
+                
+                "&:hover": { color: "#0174B3" },
+                display: "flex",
+                flexDirection: "column",
+                borderBottom: activeMenu === "message" ? "3px solid #0174b3" : "none",
+                color: activeMenu === "message" ? "#0174b3" : "#000",
+              }}
+              className="navigation"
+              onClick={() => handleMenuClick("message")}
+            >
+              <MessageIcon style={{ fontSize: 20 }} />
+              <p>Message</p>
             </Button>
-            <Button sx={{ color: "#000", "&:hover": { color: "#0174B3" } }}>
-              <AccountCircleIcon style={{ fontSize: 30 }} />
+            <Button
+              sx={{
+                
+                "&:hover": { color: "#0174B3" },
+                display: "flex",
+                flexDirection: "column",
+                borderBottom: activeMenu === "profile" ? "3px solid #0174b3" : "none",
+                color: activeMenu === "profile" ? "#0174b3" : "#000",
+              }}
+              className="navigation"
+              onClick={() => handleMenuClick("profile")}
+            >
+              <AccountCircleIcon style={{ fontSize: 20 }} />
+              <p>Profile</p>
             </Button>
           </Stack>
         </Grid>
+        {isMenuOpen && (
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: { xs: "flex", lg: "none" },
+              flexDirection: "column",
+              backgroundColor: "white",
+              padding: "10px",
+              position: "absolute",
+              top: "60px",
+              left: 0,
+              width: "100%",
+              zIndex: 10,
+            }}
+          >
+            <Stack direction="column" spacing={1}>
+              <Button
+                sx={{
+                  color: activeMenu === "home" ? "#0174b3" : "#000",
+                  "&:hover": { color: "#0174B3" },
+                  display: "flex",
+                  gap: '10px'
+                }}
+                onClick={() => handleMenuClick("home")}
+              >
+                <HomeIcon style={{ fontSize: 20 }} />
+                <p>Home</p>
+              </Button>
+              <Button
+                sx={{
+                  color: activeMenu === "network" ? "#0174b3" : "#000",
+                  "&:hover": { color: "#0174B3" },
+                  display: "flex",
+                  gap: '10px'
+                }}
+                onClick={() => handleMenuClick("network")}
+              >
+                <PeopleAltIcon style={{ fontSize: 20 }} />
+                <p>Network</p>
+              </Button>
+              <Button
+                sx={{
+                  color: activeMenu === "message" ? "#0174b3" : "#000",
+                  "&:hover": { color: "#0174B3" },
+                  display: "flex",
+                  gap: '10px'
+                }}
+                onClick={() => handleMenuClick("message")}
+              >
+                <MessageIcon style={{ fontSize: 20 }} />
+                <p>Message</p>
+              </Button>
+              <Button
+                sx={{
+                  color: activeMenu === "profile" ? "#0174b3" : "#000",
+                  "&:hover": { color: "#0174B3" },
+                  display: "flex",
+                  gap: '10px'
+                }}
+                onClick={() => handleMenuClick("profile")}
+              >
+                <AccountCircleIcon style={{ fontSize: 20 }} />
+                <p>Profile</p>
+              </Button>
+            </Stack>
+          </Grid>
+        )}
       </Grid>
     </>
   );
