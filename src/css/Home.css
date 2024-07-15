@@ -21,3 +21,14 @@
                 2px 2px 2px #fff;
 
 }
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.space-between{
+    display: flex;
+    justify-content: space-between;
+}

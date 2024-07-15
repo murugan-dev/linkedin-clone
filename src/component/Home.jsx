@@ -2,6 +2,7 @@ import React from "react";
 import NavBar from "./NavBar";
 import { Grid } from "@mui/material";
 import Profile from "./Profile";
+import Main from "./Main"
 import "../css/Home.css";
 
 function Home() {
@@ -16,12 +17,15 @@ function Home() {
           marginTop: "40px"
         }}
         container
+        spacing={5}
         >
-          <Grid lg={3}>
+          <Grid item lg={3}>
             <Profile />
           </Grid>
-          <Grid lg={6}>Main</Grid>
-          <Grid lg={3}>News</Grid>
+          <Grid item lg={6}>
+            <Main/>
+          </Grid>
+          <Grid item lg={3}>News</Grid>
         </Grid>
       </Grid>
     </>
