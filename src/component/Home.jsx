@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import { Grid } from "@mui/material";
 import Profile from "./Profile";
 import Main from "./Main"
+import News from "./News";
 import "../css/Home.css";
 
 function Home() {
@@ -13,8 +14,8 @@ function Home() {
           <NavBar />
         </Grid>
         <Grid sx={{
-          padding: { xs: "0px 2%", lg: "0px 10%" },
-          marginTop: "40px"
+          padding: { xs: "0px 3%", lg: "30px 10% 30px 10%" },
+                 
         }}
         container
         spacing={5}
@@ -25,7 +26,9 @@ function Home() {
           <Grid item lg={6}>
             <Main/>
           </Grid>
-          <Grid item lg={3}>News</Grid>
+          <Grid item lg={3}>
+            <News/>
+          </Grid>
         </Grid>
       </Grid>
     </>
