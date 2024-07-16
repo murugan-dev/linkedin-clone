@@ -25,7 +25,14 @@ function Main() {
       <Card sx={{ mb: "13px" }}>
         <Stack direction="row" sx={{ padding: "10px" }} className="gap center">
           <CardMedia
-            sx={{ height: "50px", width: "50px", borderRadius: "100%" }}
+            sx={{
+              height: "50px",
+              width: "50px",
+              borderRadius: "100%",
+              "&:hover": {
+                cursor: "pointer",
+              },
+            }}
             image={ProfileImg}
             title="Profile image"
           />
@@ -38,17 +45,21 @@ function Main() {
           />
         </Stack>
         <CardContent>
-          <Grid container sx={{ padding: "0 10% 0 10%" }} className="center">
+          <Grid
+            container
+            sx={{ padding: "0 10% 0 10%", transition: "2s ease-in-out" }}
+            className="center"
+          >
             <Grid
               item
               className="flex center"
               lg={4}
               sx={{
                 "&:hover": {
-                  height: "20px",
-                  width: "80px",
-                  backgroundColor: "#DDDDDD",
-                  borderRadius: '10px'
+                  cursor: "pointer",
+                },
+                "&:active": {
+                  transform: "scale(0.9)",
                 },
               }}
             >
@@ -57,13 +68,37 @@ function Main() {
                 Media
               </Typography>
             </Grid>
-            <Grid item className="flex center" lg={4}>
+            <Grid
+              item
+              className="flex center"
+              lg={4}
+              sx={{
+                "&:hover": {
+                  cursor: "pointer",
+                },
+                "&:active": {
+                  transform: "scale(0.9)",
+                },
+              }}
+            >
               <EventNoteIcon sx={{ color: "#C37D16", fontSize: "22px" }} />
               <Typography variant="body1" component="h4">
                 Event
               </Typography>
             </Grid>
-            <Grid item className="flex center" lg={4}>
+            <Grid
+              item
+              className="flex center"
+              lg={4}
+              sx={{
+                "&:hover": {
+                  cursor: "pointer",
+                },
+                "&:active": {
+                  transform: "scale(0.9)",
+                },
+              }}
+            >
               <ArticleIcon sx={{ color: "#E06847", fontSize: "22px" }} />
               <Typography variant="body1" component="h4">
                 Article
@@ -77,7 +112,14 @@ function Main() {
         <CardHeader
           avatar={
             <CardMedia
-              sx={{ height: "40px", width: "40px", borderRadius: "100%" }}
+              sx={{
+                height: "40px",
+                width: "40px",
+                borderRadius: "100%",
+                "&:hover": {
+                  cursor: "pointer",
+                },
+              }}
               image={ProfileImg}
               title="Profile image"
             />
