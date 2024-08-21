@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardContent, CardMedia, Typography, Stack } from "@mui/material";
 import ProfileBackGround from "../assets/ProfileBackground.jpeg";
 import ProfileImg from "../assets/Profile.png";
 import "../css/Home.css";
 
+import {auth, database} from "../firebase/setup"
+import {doc, getDoc } from "firebase/firestore"
+
+
+
+
 function Profile() {
+
+  const fetchProfile = () =>{
+    setTimeout(async()=>{
+      try{
+        const userDoc = doc(database, "Users", `${auth.currentUser?.uid}`);
+        const data = await getDoc(userDoc);
+        console.log(data)
+  
+      }catch(err){
+        console.log(err)
+      }
+    }, 1000)
+     
+  }
+
+  useEffect(()=>{
+    fetchProfile();
+  }, [])
+  
   return (
     <div>
       <Card
