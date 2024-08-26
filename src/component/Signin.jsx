@@ -13,18 +13,24 @@ import Logo from "../assets/logo.png";
 import SigninImg from "../assets/signin.jpg";
 import "../css/signin.css";
 
+import { useNavigate } from "react-router-dom";
+
 function Signin() {
+
+  const navigate = useNavigate()
 
   const [userName, setUserName] = useState('');
   const [designation, setDesignation] = useState('');
 
   const addUser = async () =>{
-    const userRef = doc(database, "Users", auth.currentUser?.uid)
+    const userRef = doc(database, `Users-${auth.currentUser?.uid}`, auth.currentUser?.uid)
     try{
       await setDoc(userRef, {
         username : userName,
         email: auth.currentUser?.email,
         designation: designation,
+        photo_url: auth.currentUser?.photoURL
+      
       });
     }catch(err){
       console.log(err)
@@ -36,6 +42,7 @@ function Signin() {
     try{
       userName && await signInWithPopup(auth, googleProvider)
       userName && addUser()
+      navigate("/home")
     }
     catch(err){
       console.log(err)

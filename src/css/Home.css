@@ -38,3 +38,9 @@
     flex-direction: column;
     gap: 15px;
 }
+
+nav-bar-profile:hover{
+
+    transform: scale(1.1);
+
+}

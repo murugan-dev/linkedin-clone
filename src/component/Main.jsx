@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
   Grid,
   Stack,
@@ -15,13 +15,32 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ArticleIcon from "@mui/icons-material/Article";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import CloseIcon from "@mui/icons-material/Close";
-import ProfileImg from "../assets/Profile.png";
-import Post from "../assets/simplePost.jpeg";
+// import ProfileImg from "../assets/Profile.png";
+// import Post from "../assets/simplePost.jpeg";
+import Post from "./Post"
 import "../css/Home.css";
 
-function Main() {
+import { auth } from "../firebase/setup"
+
+function Main({data}) {
+
+  const [profile, setProfile] = useState("");
+
+  const postRef = useRef(null);
+
+  useEffect(()=>{
+    setTimeout(async()=>{
+      await setProfile(auth.currentUser.photoURL);
+
+    }, 1000)
+    
+  })
+
+
   return (
     <div>
+
+      
       <Card sx={{ mb: "13px" }}>
         <Stack direction="row" sx={{ padding: "10px" }} className="gap center">
           <CardMedia
@@ -33,7 +52,7 @@ function Main() {
                 cursor: "pointer",
               },
             }}
-            image={ProfileImg}
+            image={profile}
             title="Profile image"
           />
           <TextField
@@ -42,7 +61,9 @@ function Main() {
             InputProps={{
               sx: {},
             }}
+            onClick={()=> postRef.current?.click()}
           />
+          <Post ref={postRef}/>
         </Stack>
         <CardContent>
           <Grid
@@ -120,7 +141,7 @@ function Main() {
                   cursor: "pointer",
                 },
               }}
-              image={ProfileImg}
+              image={profile}
               title="Profile image"
             />
           }
@@ -134,7 +155,7 @@ function Main() {
               </IconButton>
             </Stack>
           }
-          title="Role"
+          title={data.username}
           sx={{ padding: "10px" }}
         />
         <CardContent>
