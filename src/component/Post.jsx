@@ -18,7 +18,7 @@ const customStyles = {
   },
 };
 
-// Modal.setAppElement('#yourAppElement'); 
+Modal.setAppElement('#root'); 
 
 function Post(props, ref) {
 

@@ -20,14 +20,10 @@ function Home() {
       }
 
       try {
-        const userDoc = doc(database, `Users-${auth.currentUser?.uid}`, auth.currentUser?.uid);
+        const userDoc = doc(database, `Users`, auth.currentUser?.uid);
         const data = await getDoc(userDoc);
         if (data.exists()) {
           setUserDetail(data.data());
-          // setProfile(auth.currentUser.photoURL)
-          // console.log("user Detail");
-
-          // console.log(data.data());
         } else {
           console.log("No such document!");
         }

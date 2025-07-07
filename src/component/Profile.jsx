@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardMedia, Typography, Stack } from "@mui/material";
 import ProfileBackGround from "../assets/ProfileBackground.jpeg";
-// import ProfileImg from "../assets/Profile.png";
+import UserDefaultProfile from '../assets/userProfile.jpg'
+import ProfileImg from "../assets/Profile.jpeg";
 import "../css/Home.css";
 
 import { auth } from "../firebase/setup";
+import { Link } from "react-router-dom";
 
 function Profile({ data }) {
   const [profilePhoto, setprofilePhoto] = useState("");
 
   useEffect(() => {
     setTimeout(async () => {
-      await setprofilePhoto(auth.currentUser.photoURL);
+      await setprofilePhoto(auth.currentUser?.photoURL || UserDefaultProfile);
     }, 2000);
   });
 
@@ -49,7 +51,7 @@ function Profile({ data }) {
               cursor: "pointer",
             },
           }}
-          image={profilePhoto}
+          image={profilePhoto || ProfileImg}
           title="Profile image"
         />
         <CardContent>
@@ -62,13 +64,13 @@ function Profile({ data }) {
           <hr />
           <Stack direction="column" className="gap" sx={{ mt: 1 }}>
             <Stack direction="row" className="space-between">
-              <Typography variant="p">Profile Views</Typography>
+              <Link to="/invitations">Invitations</Link>
               <Typography variant="p" component="h4" sx={{ color: "#0174B3" }}>
                 122
               </Typography>
             </Stack>
             <Stack direction="row" className="space-betaween gap">
-              <Typography variant="p">Connection</Typography>
+              <Link to='/connections' state={{username:data?.username, designation: data?.designation, profileImg: profilePhoto || ProfileImg}}>Connection</Link>
               <Typography variant="p" component="h4" sx={{ color: "#0174B3" }}>
                 1080
               </Typography>

@@ -11,6 +11,7 @@ import {ToastContainer , toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import Logo from "../assets/logo.png";
 import SigninImg from "../assets/signin.jpg";
+import UserDefaultProfile from '../assets/userProfile.jpg'
 import "../css/signin.css";
 
 import { useNavigate } from "react-router-dom";
@@ -23,13 +24,14 @@ function Signin() {
   const [designation, setDesignation] = useState('');
 
   const addUser = async () =>{
-    const userRef = doc(database, `Users-${auth.currentUser?.uid}`, auth.currentUser?.uid)
+    const userRef = doc(database, `Users`, auth.currentUser?.uid)
+    
     try{
       await setDoc(userRef, {
         username : userName,
         email: auth.currentUser?.email,
         designation: designation,
-        photo_url: auth.currentUser?.photoURL
+        photo_url: auth.currentUser?.photoURL || UserDefaultProfile,
       
       });
     }catch(err){
