@@ -14,6 +14,7 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
+
 import React, { useEffect, useState } from "react";
 import { auth, database } from "../firebase/setup";
 
@@ -26,7 +27,7 @@ function Invitations() {
       const data = await getDocs(requestInRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
-        id: doc.id,
+        id: doc?.id,
       }));
       setinvitationsList(filteredData);
     } catch (err) {
@@ -71,7 +72,6 @@ function Invitations() {
     showrequest();
   }, []);
 
-  console.log(invitationsList, "invitation List");
 
   return (
     <div>

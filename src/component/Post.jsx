@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { forwardRef } from 'react';
-// import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { Button, TextField } from '@mui/material';
 import { setDoc, doc } from 'firebase/firestore';
@@ -41,7 +40,6 @@ function Post(props, ref) {
   }
 
   const addPost = async () => {
-    // const postDocument = doc(database, `Users-${auth.currentUser?.uid}`, `${auth.currentUser?.uid}`)
     const postRef = doc(database, 'Posts', `${Math.random()}`);
 
     try {

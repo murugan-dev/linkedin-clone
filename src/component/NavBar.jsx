@@ -1,45 +1,32 @@
-import { Grid, TextField, Stack, Box, Button } from "@mui/material";
+import { Grid, Stack, Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import Logo from "../assets/Homelogo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MessageIcon from "@mui/icons-material/Message";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import "../css/Home.css";
 import UserDefaultProfile from "../assets/Profile.jpeg";
+import { useNavigate } from "react-router-dom";
 
-// import {auth} from "../firebase/setup"
 
 const NavBar = ({ data }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const [activeMenu, setActiveMenu] = useState("home");
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-  };
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
   const handleMenuClick = (menu) => {
+    navigate(`/${menu}`, {
+      data
+    })
     setActiveMenu(menu);
   };
 
-  // useEffect(() => {
-  //   setTimeout(async () => {
-  //     await setprofilePhoto(auth.currentUser.
-  // );
-  //   }, 1000);
-  // });
 
   return (
     
@@ -77,31 +64,7 @@ const NavBar = ({ data }) => {
                 style={{ height: "100%", width: "100%" }}
               />
             </Box>
-            <Box sx={{ position: "relative", width: { xs: "70%", lg: "90%" } }}>
-              <TextField
-                variant="outlined"
-                placeholder="Search"
-                sx={{ width: { xs: "110%", lg: "150%" } }}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                InputProps={{
-                  sx: {
-                    height: { xs: "40px", lg: "50px" },
-                    padding: "10px 28px",
-                  },
-                }}
-              />
-              <SearchIcon
-                sx={{
-                  position: "absolute",
-                  right: "84%",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  zIndex: 10,
-                  color: isFocused ? "blue" : "grey",
-                }}
-              />
-            </Box>
+            
           </div>
           <Grid
             sx={{
@@ -175,21 +138,6 @@ const NavBar = ({ data }) => {
               <MessageIcon style={{ fontSize: 20 }} />
               <p style={{ fontSize: 12 }}>Message</p>
             </Button>
-            {/* <Button
-              sx={{
-
-                "&:hover": { color: "#0174B3" },
-                display: "flex",
-                flexDirection: "column",
-                borderBottom: activeMenu === "profile" ? "3px solid #0174b3" : "none",
-                color: activeMenu === "profile" ? "#0174b3" : "#000",
-              }}
-              className="navigation"
-              onClick={() => handleMenuClick("profile")}
-            >
-              <AccountCircleIcon style={{ fontSize: 20 }} />
-              <p style={{fontSize: 12}}>Profile</p>
-            </Button> */}
             <img
               src={data.photo_url || UserDefaultProfile}
               alt="Profile"
@@ -252,18 +200,7 @@ const NavBar = ({ data }) => {
                 <MessageIcon style={{ fontSize: 20 }} />
                 <p>Message</p>
               </Button>
-              {/* <Button
-                sx={{
-                  color: activeMenu === "profile" ? "#0174b3" : "#000",
-                  "&:hover": { color: "#0174B3" },
-                  display: "flex",
-                  gap: '10px'
-                }}
-                onClick={() => handleMenuClick("profile")}
-              >
-                <AccountCircleIcon style={{ fontSize: 20 }} />
-                <p>Profile</p>
-              </Button> */}
+              
             </Stack>
           </Grid>
         )}

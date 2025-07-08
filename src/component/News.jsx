@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, Stack, Typography } from "@mui/material"
 import "../css/Home.css"
 
 function News() {
+
+  const [news, setNews] = useState([])
+  const getNews = async () => {
+    try{
+      const res = await fetch(`https://newsapi.org/v2/everything?q=Apple&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`)
+      const {articles} = await res.json();
+      const data = articles.slice(0, 5);
+      setNews(data)
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    getNews();
+  }, [])
+
+  console.log(news, "newss")
   return (
     <div>
       <Card sx={{ padding: "0px 20px" }}>
@@ -16,11 +34,12 @@ function News() {
         />
         <CardContent className=''>
           <ul style={{listStyle: "none", paddingLeft: "20px"}} className="gap">
-            <li>News 1</li>
-            <li>News 2</li>
-            <li>News 3</li>
-            <li>News 4</li>
-            <li>News 5</li>
+
+            {news?.map((item)=>{
+              return(
+                <li key={item?.publishedAt}>{item?.title}</li>
+              )
+            })}
           </ul>
         </CardContent>
       </Card>

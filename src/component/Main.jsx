@@ -18,7 +18,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Post from "./Post";
 import UserDefaultProfile from "../assets/Profile.jpeg";
 import "../css/Home.css";
-import { getDocs, collection } from "firebase/firestore";
+import { collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import { auth, database } from "../firebase/setup";
 import PropTypes from "prop-types";
 
@@ -29,28 +29,24 @@ function Main({ data }) {
   const postRef = useRef(null);;
 
 
-  const getPost = async () => {
-
-    const postRef = collection(database, "Posts"); // ← Correct collection
-    try {
-      const data = await getDocs(postRef);
-      const filterData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setPost(filterData);
-    } catch (err) {
-      console.error("Error fetching posts:", err);
-    }
-  };
-
   useEffect(() => {
     setProfile(auth.currentUser?.photoURL || UserDefaultProfile);
   }, []);
 
-  useEffect(() => {
-    getPost();
-  }, []);
+ useEffect(() => {
+  const postRef = collection(database, "Posts");
+  const q = query(postRef, orderBy("timestamp", "desc")); // Order by latest
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const updatedPosts = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setPost(updatedPosts);
+  });
+
+  return () => unsubscribe(); // Cleanup listener on unmount
+}, []);
 
   return (
     <div>
@@ -142,52 +138,35 @@ function Main({ data }) {
         </CardContent>
       </Card>
       {post.map((posts, idx) => (
-        <Card sx={{ mt: "13px", padding: "0.4rem" }} key={posts.id || idx}>
-          <CardHeader
-            avatar={
-              <CardMedia
-                sx={{
-                  height: "40px",
-                  width: "40px",
-                  borderRadius: "100%",
-                  "&:hover": {
-                    cursor: "pointer",
-                  },
-                }}
-                image={profile || UserDefaultProfile}
-                title="Profile image"
-              />
-            }
-            action={
-              <Stack direction="row" spacing={1}>
-                <IconButton>
-                  <MoreHorizIcon />
-                </IconButton>
-                <IconButton>
-                  <CloseIcon />
-                </IconButton>
-              </Stack>
-            }
-            title={data.username}
-            sx={{ padding: "10px" }}
-          />
-          <Typography
-            sx={{
-              paddingLeft: "1.5rem",
-            }}
-          >
-            {posts.content}
-          </Typography>
-          <CardContent>
-            {/* <CardMedia
-              component="img"
-              image={UserPost}
-              title="Your Post"
-              sx={{ padding: "13%" }}
-            /> */}
-          </CardContent>
-        </Card>
-      ))}
+  <Card sx={{ mt: "13px", padding: "0.4rem" }} key={posts.id || idx}>
+    <CardHeader
+      avatar={
+        <CardMedia
+          sx={{
+            height: "40px",
+            width: "40px",
+            borderRadius: "100%",
+          }}
+          image={profile || UserDefaultProfile}
+          title="Profile image"
+        />
+      }
+      title={data.username}
+    />
+    <Typography sx={{ paddingLeft: "1.5rem" }}>{posts.content}</Typography>
+
+    {posts.image && (
+      <CardMedia
+        component="img"
+        image={posts.image}
+        alt="Uploaded"
+        sx={{ width: "100%", maxHeight: "400px", objectFit: "contain", mt: 2 }}
+      />
+    )}
+
+    <CardContent />
+  </Card>
+))}
     </div>
   );
 }

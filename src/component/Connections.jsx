@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
+
 function Connections() {
   const [userList, setUserList] = useState([]);
   const { profileImg, designation, username } = useLocation().state;
@@ -21,7 +22,6 @@ function Connections() {
     const connectionRef = collection(userRef, "RequestIn");
 
     try {
-      console.log(username, designation, profileImg);
       await addDoc(connectionRef, {
         username,
         designation,
@@ -46,7 +46,6 @@ function Connections() {
         .filter((user) => auth.currentUser?.uid !== user.id);
       setUserList(filteredData);
     } catch (err) {
-      console.log("You're getting an error");
       console.log(err);
     }
   };

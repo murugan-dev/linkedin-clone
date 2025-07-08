@@ -40,7 +40,14 @@ function Signin() {
 } 
 
   const signinWithGoogle = async () => {
-    !userName && toast.warn("please enter the the User name")
+    if(!userName){
+       toast.warn("please enter the User name");
+       return;
+    }
+    if(!designation){
+      toast.warn("please enter the destination");
+       return;
+    }
     try{
       userName && await signInWithPopup(auth, googleProvider)
       userName && addUser()
@@ -70,7 +77,7 @@ function Signin() {
             </Typography>
           </Stack>
           <label style={{ fontWeight: "bold", fontSize: "1.1rem" }}>
-            Enter Email or username
+            Enter your username
           </label>
           <br />
           <TextField
