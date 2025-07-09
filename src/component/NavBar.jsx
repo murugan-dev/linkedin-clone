@@ -188,18 +188,6 @@ const NavBar = ({ data }) => {
                 <PeopleAltIcon style={{ fontSize: 20 }} />
                 <p>Network</p>
               </Button>
-              <Button
-                sx={{
-                  color: activeMenu === "message" ? "#0174b3" : "#000",
-                  "&:hover": { color: "#0174B3" },
-                  display: "flex",
-                  gap: "10px",
-                }}
-                onClick={() => handleMenuClick("message")}
-              >
-                <MessageIcon style={{ fontSize: 20 }} />
-                <p>Message</p>
-              </Button>
               
             </Stack>
           </Grid>
